@@ -35,3 +35,53 @@ const options = {
   time_24hr: true,
   defaultDate: todayDate,
   minuteIncrement: 1 }
+
+  onClose(SelectedDate) {
+    if (SelectedDate[0].getTime() = todayDate.getTime()) {
+      iziToast.show({
+        title: '',
+        message: `Please choose the date in the future.`,
+        messageColor: 'white',
+        backgroundColor: '#E25757',
+        position: 'topRight',
+      });
+    } else {
+      userSelectedDate = SelectedDate[0];
+      button.removeAttribute('disabled');
+    }
+  },
+  function setTimer(userDate) {
+    if (userDate !== undefined) {
+      button.setAttribute('disabled', '');
+      const currentTime = Date.now();
+      const timeDiff = userDate.getTime() - currentTime;
+      updateDate(timeDiff);
+  
+      const timer = setInterval(() => {
+        const currentTime = Date.now();
+        const timeDiff = userDate.getTime() - currentTime;
+  
+        if (timeDiff <= 0) {
+          clearInterval(timer);
+          button.removeAttribute('disabled');
+          iziToast.show({
+            title: '',
+            message: `Time is left`,
+            messageColor: 'white',
+            backgroundColor: '#57E29A',
+            position: 'topRight',
+          });
+          return;
+        }
+    
+      }
+    }
+  }
+  function updateDate(timeDiff) {
+    const { days, hours, minutes, seconds } = convertMs(timeDiff);
+  
+    spanDays.textContent = days.toString().padStart(2, '0');
+    spanHours.textContent = hours.toString().padStart(2, '0');
+    spanMinutes.textContent = minutes.toString().padStart(2, '0');
+    spanSeconds.textContent = seconds.toString().padStart(2, '0');
+  }

@@ -16,3 +16,9 @@ function createPromise(value, delay) {
     }, delay);
   });
 }
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const delayValue = parseInt(delay.value);
+  const radio = document.querySelector('input[type="radio"]:checked');
+  const selectedValue = radio.value;
+  createPromise(selectedValue, delayValue)
