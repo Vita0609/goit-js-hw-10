@@ -1,0 +1,2 @@
+import"./assets/modulepreload-polyfill-3cfb730f.js";import"./assets/vendor-d07556bb.js";const n=document.querySelector('input[type="number"]'),u=document.querySelector("form");function c(t,e){return new Promise((r,o)=>{setTimeout(()=>{t==="fulfilled"?r(e):o(e)},e)})}u.addEventListener("submit",t=>{t.preventDefault();const e=parseInt(n.value),o=document.querySelector('input[type="radio"]:checked').value;c(o,e)});
+//# sourceMappingURL=commonHelpers2.js.map
