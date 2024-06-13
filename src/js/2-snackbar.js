@@ -22,3 +22,4 @@ form.addEventListener('submit', e => {
   const radio = document.querySelector('input[type="radio"]:checked');
   const selectedValue = radio.value;
   createPromise(selectedValue, delayValue)
+}
