@@ -28,16 +28,17 @@ const spanHours = document.querySelector('span[data-hours]');
 const spanMinutes = document.querySelector('span[data-minutes]');
 const spanSeconds = document.querySelector('span[data-seconds]');
 
-let userSelectedDate;
+button.addEventListener("click",setTimer);
 const todayDate = new Date();
+let userSelectedDate;
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: todayDate,
-  minuteIncrement: 1 }
+  minuteIncrement: 1,
 
   onClose(SelectedDate) {
-    if (SelectedDate[0].getTime() = todayDate.getTime()) {
+    if (SelectedDate[0].getTime() === new Date()) {
       iziToast.show({
         title: '',
         message: `Please choose the date in the future.`,
@@ -47,21 +48,24 @@ const options = {
       });
     } else {
       userSelectedDate = SelectedDate[0];
+      updateDate(userSelectedDate.getTime() - new Date())
       button.removeAttribute('disabled');
     }
-  },
-  function setTimer(userDate) {
-    if (userDate !== undefined) {
+  }}
+
+  flatpickr(mainInp, options);
+  
+  
+  function setTimer() {
+    if (userSelectedDate !== undefined) {
       button.setAttribute('disabled', '');
       const currentTime = Date.now();
-      const timeDiff = userDate.getTime() - currentTime;
+      let timeDiff = userSelectedDate.getTime() - currentTime;
       updateDate(timeDiff);
-  
       const timer = setInterval(() => {
-        const currentTime = Date.now();
-        const timeDiff = userDate.getTime() - currentTime;
-  
-        if (timeDiff <= 0) {
+      const time = Date.now();
+       timeDiff = userSelectedDate.getTime() - time;
+        if (timeDiff < 0) {
           clearInterval(timer);
           button.removeAttribute('disabled');
           iziToast.show({
@@ -73,8 +77,8 @@ const options = {
           });
           return;
         }
-    
-      }
+        updateDate(timeDiff);
+      },1000)
     }
   }
   function updateDate(timeDiff) {
